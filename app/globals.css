@@ -2,12 +2,15 @@
 
 :root {
   /* Your default theme */
-  --background: blue;
-  --text-black:black;
+  --primary-color:#2563EB;
+  --secondary-color:#F59E0B;
+  --neutral-color:#F9FAFB;
+
 
 }
 
 .dark {
-  --background: white;
-  --text-black:white;
+  --primary-color:#60A5FA;
+  --secondary-color:#FBBF24;
+  --neutral-color:#111827;
 }

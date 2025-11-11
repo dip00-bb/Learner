@@ -18,7 +18,7 @@ export default function Home() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <main style={{ padding: 20 }} className="text-(--text-black) bg-(--background)">
+    <main style={{ padding: 20 }} className="bg-(--background)">
       <h1>Next.js + GraphQL</h1>
       <p>{data.hello}</p>
       <ThemeToggle/>
