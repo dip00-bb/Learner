@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
           defaultTheme="system"
           enableSystem={true}
         >
-                  {/* <Navbar/> */}
+                  <Navbar/>
           <ApolloProviderWrapper>{children}</ApolloProviderWrapper>
         </ThemeProvider>
       </body>
