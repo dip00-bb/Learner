@@ -1,8 +1,9 @@
-const typeDefs = /* GraphQL */ `
-  type Query {
-    hello: String!
-  }
+import { makeExecutableSchema } from "@graphql-tools/schema";
 
-  
-`;
-export default typeDefs
+import { typeDefs } from "./typeDefs/index.js";
+import {resolvers} from './resolvers/index.js'
+
+export const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});

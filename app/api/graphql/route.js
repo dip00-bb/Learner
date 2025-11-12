@@ -1,14 +1,10 @@
+import { schema } from '@/app/graphql/schema';
 import { createYoga, createSchema } from 'graphql-yoga';
-import typeDefs from '../../graphql/schema.js'
-import resolvers from '../../graphql/resolvers.js'
 
 
 // ✅ Create Yoga instance
 const yoga = createYoga({
-  schema: createSchema({
-    typeDefs,
-    resolvers,
-  }),
+  schema:schema,
   graphqlEndpoint: '/api/graphql',
 });
 
