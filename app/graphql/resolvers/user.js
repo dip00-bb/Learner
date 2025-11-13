@@ -8,11 +8,26 @@ export const userResolvers = {
                 return rows
             } catch (error) {
                 console.error("Database Error")
-                throw new Error ("Failed to fetch user")
+                throw new Error("Failed to fetch user")
             }
         },
     },
     Mutation: {
-        addUser: (_, { name, email }) => ({ id: "2", name, email }),
+        addUser: async (_, { input }) => {
+            try {
+                const { firstName, lastName, email } = input
+                console.log(firstName, lastName, email)
+                const query = `
+                    INSERT INTO Users (firstName, lastName, email) 
+                    VALUES (?, ?, ?)
+                    `
+                db.execute(
+                    query,
+                    [firstName, lastName, email]
+                )
+            } catch (error) {
+                console.log(error)
+            }
+        },
     },
 };

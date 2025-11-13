@@ -13,6 +13,14 @@ export const userTypeDefs = gql`
   }
 
   extend type Mutation {
-    addUser(name: String!, email: String!): User
+    addUser(input:UserInfo!): User
   }
+
+  input UserInfo {
+    firstName:String!,
+    lastName:String!,
+    email:String!
+  }
+
+  
 `;
