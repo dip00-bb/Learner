@@ -9,6 +9,8 @@ import AuthImage from '@/app/Component/AuthImage';
 import { handleEmailPassReg } from '@/app/FirebaseAuthFn/authFn';
 import { AuthContext } from '@/app/Contexts/AuthContext/AuthContext';
 import { axiosPublic } from '@/app/AxiosInstance/useAxiosPublic';
+import { useMutation } from '@apollo/client/react';
+import SAVE_USER_IN_DB from '@/app/graphql/user-quaries';
 
 export default function RegisterPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -16,8 +18,14 @@ export default function RegisterPage() {
 
     const { registerUser, updateUser, setUser } = use(AuthContext)
 
+    const [addUser]=useMutation(SAVE_USER_IN_DB)
+
     const onSubmit = (data) => {
-        handleEmailPassReg(registerUser, updateUser, setUser, data, axiosPublic)
+        try {
+            handleEmailPassReg(registerUser, updateUser, setUser, data, addUser)
+        } catch (error) {
+            console.log("something went wrong",error)
+        }
     };
 
     return (

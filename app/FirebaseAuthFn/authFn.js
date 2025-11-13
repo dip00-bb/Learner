@@ -1,6 +1,7 @@
+import { handleSaveUserInDB } from "../utilitis/saveUserInDbFn";
 
 // register function
-export const handleEmailPassReg = (register, update, setuser, dataObj, apiPublic) => {
+export const handleEmailPassReg = (register, update, setuser, dataObj,gqlMutationName) => {
     console.log(dataObj)
     register(dataObj.email, dataObj.password)
         .then((res) => {
@@ -9,7 +10,7 @@ export const handleEmailPassReg = (register, update, setuser, dataObj, apiPublic
                 const user = res.user
                 update(dataObj.userName).then(() => {
 
-                    setuser({ ...user, displayName: dataObj.firstName});
+                    setuser({ ...user, displayName: dataObj.firstName });
 
                     const userInformation = {
                         firstName: dataObj.firstName,
@@ -17,12 +18,7 @@ export const handleEmailPassReg = (register, update, setuser, dataObj, apiPublic
                         email: dataObj.email,
                     };
 
-                    apiPublic.post('/user', userInformation)
-                        .then(() => {
-                            console.log("Successfully registered")
-                        }).catch((err) => {
-                            console.log(err.message)
-                        })
+                    handleSaveUserInDB(gqlMutationName,userInformation)
 
                 }).catch(error => {
                     console.log(error.message)
@@ -56,7 +52,7 @@ export const googleLoginFn = (loginFn, apiPublic, successAlert, errorAlert) => {
                 lastName: user.displayName.split(" ")[1],
                 email: user.email,
                 photoURL: user.photoURL,
-                UID:user.uid
+                UID: user.uid
             };
 
             successAlert("User registered successfully")
