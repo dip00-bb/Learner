@@ -1,8 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ApolloProviderWrapper from "./ApolloWraper/ApolloProviderWrapper";
+import ApolloProviderWrapper from "./Wraper/ApolloProviderWrapper";
 import { ThemeProvider } from "next-themes";
 import Navbar from "./Component/Navbar";
+import AuthProviderWrapper from "./Wraper/AuthProviderWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +31,10 @@ export default function RootLayout({ children }) {
           defaultTheme="system"
           enableSystem={true}
         >
-                  {/* <Navbar/> */}
-          <ApolloProviderWrapper>{children}</ApolloProviderWrapper>
+          <AuthProviderWrapper>
+            <ApolloProviderWrapper>{children}</ApolloProviderWrapper>
+          </AuthProviderWrapper>
+          
         </ThemeProvider>
       </body>
     </html>

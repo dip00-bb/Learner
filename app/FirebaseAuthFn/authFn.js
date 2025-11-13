@@ -1,40 +1,40 @@
 
 // register function
-export const handleEmailPassReg = (register, update, setuser, dataObj, imgurl, apiPublic, successAlert, errorAlert) => {
-
+export const handleEmailPassReg = (register, update, setuser, dataObj, apiPublic) => {
+    console.log(dataObj)
     register(dataObj.email, dataObj.password)
         .then((res) => {
             if (res.user) {
 
                 const user = res.user
-                update(dataObj.userName, imgurl).then(() => {
+                update(dataObj.userName).then(() => {
 
-                    setuser({ ...user, displayName: dataObj.userName, photoURL: imgurl });
+                    setuser({ ...user, displayName: dataObj.firstName});
 
                     const userInformation = {
                         firstName: dataObj.firstName,
                         lastName: dataObj.lastName,
                         email: dataObj.email,
-                        photoURL: imgurl,
                     };
 
                     apiPublic.post('/user', userInformation)
                         .then(() => {
-                            successAlert("Successfully registered")
+                            console.log("Successfully registered")
                         }).catch((err) => {
-                            errorAlert(err.message)
+                            console.log(err.message)
                         })
 
                 }).catch(error => {
-                    errorAlert(error.message)
+                    console.log(error.message)
 
                 })
             }
 
         })
         .catch((error) => {
-            errorAlert(error.message)
+            console.log(error.message)
         });
+
 }
 
 // login function
@@ -52,8 +52,8 @@ export const googleLoginFn = (loginFn, apiPublic, successAlert, errorAlert) => {
         .then((res) => {
             const user = res.user
             const userInformation = {
-                fName: user.displayName.split(" ")[0],
-                lName: user.displayName.split(" ")[1],
+                firstName: user.displayName.split(" ")[0],
+                lastName: user.displayName.split(" ")[1],
                 email: user.email,
                 photoURL: user.photoURL,
                 UID:user.uid

@@ -1,19 +1,23 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import AuthImage from '@/app/Component/AuthImage';
+import { handleEmailPassReg } from '@/app/FirebaseAuthFn/authFn';
+import { AuthContext } from '@/app/Contexts/AuthContext/AuthContext';
+import { axiosPublic } from '@/app/AxiosInstance/useAxiosPublic';
 
 export default function RegisterPage() {
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
 
+    const { registerUser, updateUser, setUser } = use(AuthContext)
+
     const onSubmit = (data) => {
-        console.log('Form Data:', data);
-        alert('Registration submitted! Check console for data.');
+        handleEmailPassReg(registerUser, updateUser, setUser, data, axiosPublic)
     };
 
     return (
@@ -45,7 +49,7 @@ export default function RegisterPage() {
                                     <input
                                         id="firstName"
                                         type="text"
-                                        {...register('FirstName', { required: 'First name is required' })}
+                                        {...register('firstName', { required: 'First name is required' })}
                                         className="w-full pl-11 pr-4 py-3 bg-(--neutral-color) border border-gray-300 dark:border-gray-700 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-(--primary-color) focus:border-transparent transition-all"
                                         placeholder="Enter your first name"
                                     />
@@ -69,7 +73,7 @@ export default function RegisterPage() {
                                     <input
                                         id="lastName"
                                         type="text"
-                                        {...register('LastName', { required: 'Last name is required' })}
+                                        {...register('lastName', { required: 'Last name is required' })}
                                         className="w-full pl-11 pr-4 py-3 bg-(--neutral-color) border border-gray-300 dark:border-gray-700 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-(--primary-color) focus:border-transparent transition-all"
                                         placeholder="Enter your last name"
                                     />
@@ -104,7 +108,7 @@ export default function RegisterPage() {
                                                 ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                                                 : ""
                                             }`}
-                                        {...register("Email", {
+                                        {...register("email", {
                                             required: "Email is required",
                                             pattern: {
                                                 // Proper email regex
