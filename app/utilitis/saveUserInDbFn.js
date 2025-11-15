@@ -11,8 +11,8 @@ export const handleSaveUserInDB= async (mutationName,object)=>{
             }
         }
       })
-      console.log(response)
+      console.log("jhu",response)
     } catch (error) {
-        console.log(error)
+        console.log("jkhh",error,typeof(error))
     }
 }

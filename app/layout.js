@@ -32,9 +32,12 @@ export default function RootLayout({ children }) {
           enableSystem={true}
         >
           <AuthProviderWrapper>
-            <ApolloProviderWrapper>{children}</ApolloProviderWrapper>
+            <ApolloProviderWrapper>
+              <Navbar/>
+              {children}
+            </ApolloProviderWrapper>
           </AuthProviderWrapper>
-          
+
         </ThemeProvider>
       </body>
     </html>

@@ -16,15 +16,20 @@ export const userResolvers = {
         addUser: async (_, { input }) => {
             try {
                 const { firstName, lastName, email } = input
-                console.log(firstName, lastName, email)
                 const query = `
                     INSERT INTO Users (firstName, lastName, email) 
                     VALUES (?, ?, ?)
                     `
-                db.execute(
+                const response= await db.execute(
                     query,
                     [firstName, lastName, email]
                 )
+                const token="asjkfajskfajsjkfjksdjkjfjfsdjfrsjk"
+                return{
+                    id:response.insertedId,
+                    token
+                } 
+
             } catch (error) {
                 console.log(error)
             }
