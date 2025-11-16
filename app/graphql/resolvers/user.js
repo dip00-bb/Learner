@@ -1,3 +1,5 @@
+import { registerQuery } from "@/app/SqlQuaries/userRelatedQuaries";
+import { generateJsonWebToken } from "@/app/utilitis/generateJwtToekn";
 import { db } from "@/lib/dbConnect";
 
 export const userResolvers = {
@@ -16,15 +18,13 @@ export const userResolvers = {
         addUser: async (_, { input }) => {
             try {
                 const { firstName, lastName, email } = input
-                const query = `
-                    INSERT INTO Users (firstName, lastName, email) 
-                    VALUES (?, ?, ?)
-                    `
                 const response= await db.execute(
-                    query,
+                    // registerQuery sql query. Hover to know more
+                    registerQuery,
                     [firstName, lastName, email]
                 )
-                const token="asjkfajskfajsjkfjksdjkjfjfsdjfrsjk"
+
+                const token=generateJsonWebToken(email)
                 return{
                     id:response.insertedId,
                     token
